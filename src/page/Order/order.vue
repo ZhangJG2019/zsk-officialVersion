@@ -1,9 +1,9 @@
 <template>
   <div>
-    <y-header>
+    <!-- <y-header >
       <div slot="nav"></div>
-    </y-header>
-    <router-view style="margin-top: 40px;"></router-view>
+    </y-header> -->
+    <router-view></router-view>
     <y-footer></y-footer>
   </div>
 </template>

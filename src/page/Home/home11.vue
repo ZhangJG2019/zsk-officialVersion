@@ -12,7 +12,7 @@
               </h2>
               <ul class="left_ul left_content">
                 <li v-for="(item, key) in topNews" :key="key">
-                  <span>{{ item.publishTime | formatDate }}</span>
+                  <span>{{ date | formatDate }}</span>
                   <a @click="See(item.linkUrl)" v-text="item.title"> </a>
                 </li>
                 <li class="static_null zuixin" style="display:none">
@@ -242,21 +242,21 @@
       <ul class=" guide_ul">
         <li style="background-color:#35be9b;">
           <!-- <li> -->
-          <router-link to="/taskUser">
+          <router-link to="####">
             <i class="iconfont icon-yonghuguanli"></i>
             <p>知识库用户</p>
           </router-link>
         </li>
         <li style="background-color:#8bc255;">
           <!-- <li> -->
-          <router-link to="/download">
+          <router-link to="####">
             <i class="iconfont icon-xiazai"></i>
             <p>下载</p>
           </router-link>
         </li>
         <li style="background-color:#56bde3;">
           <!-- <li> -->
-          <router-link to="/help">
+          <router-link to="####">
             <i class="iconfont icon-bangzhu"></i>
             <p>帮助</p>
           </router-link>
@@ -294,8 +294,9 @@ import { sendmsg, userInfo } from '/api/index.js'
 import 'element-ui'
 import 'jquery'
 import axios from 'axios'
-import { getStore, setStore } from '/utils/storage.js'
+import { setStore, getStore } from '/utils/storage'
 import store from '../../store/index.js'
+
 // 时间补位函数 1
 var padDate = function(value) {
   return value < 10 ? '0' + value : value
@@ -304,13 +305,11 @@ var padDate = function(value) {
 // 格式化时间函数 1
 var formatDate = function(value) {
   // 这里的value就是需要过滤的数据
-  // var date = new Date(value)
-  // var year = date.getFullYear()
-  // var month = padDate(date.getMonth() + 1)
-  // var day = padDate(date.getDate())
-  // return year + '-' + month + '-' + day
-   let a = value.split(' ')
-  return a[0]
+  var date = new Date(value)
+  var year = date.getFullYear()
+  var month = padDate(date.getMonth() + 1)
+  var day = padDate(date.getDate())
+  return year + '-' + month + '-' + day
 }
 // 格式化时间函数 2
 export default {
@@ -361,11 +360,6 @@ export default {
       notice: []
     }
   },
-  computed: {
-    count() {
-      return this.$store.state.login
-    }
-  },
   methods: {
     tanchaung() {
       let userInfo = getStore('userInfo')
@@ -383,9 +377,10 @@ export default {
         })
       }
     },
+    // 向cms发请求获取用户信息
     getname() {
       userInfo().then(res => {
-        // console.log(res.data.user)
+        console.log(res.data.user)
         let menuCode = new Set()
         let user = res.data.user
         let role = user.roleVo
@@ -399,6 +394,7 @@ export default {
         store.commit('RECORD_USERINFO', {
           info: user
         })
+        // console.log('store.info' + store.info)
         setStore('userInfo', user)
       })
     },
@@ -427,10 +423,10 @@ export default {
             })
             .catch(res => {
               // console.log(111111111111)
-              // this.$message({
-              //   message: res.message,
-              //   type: 'error'
-              // })
+              this.$message({
+                message: res.message,
+                type: 'error'
+              })
             })
         } else {
           this.$message({
@@ -451,42 +447,6 @@ export default {
     drug() {
       this.$router.push({
         path: '/drug'
-      })
-    },
-    // 药物基因对
-    drugGenePair() {
-      this.$router.push({
-        path: '/drugGenePair'
-      })
-    },
-    // 权威指南
-    authority() {
-      this.$router.push({
-        path: '/authority'
-      })
-    },
-    // 药物标签
-    drugLabels() {
-      this.$router.push({
-        path: '/drugLabels'
-      })
-    },
-    // 临床注释
-    clinicalNotes() {
-      this.$router.push({
-        path: '/clinicalNotes'
-      })
-    },
-    // 临床实验
-    clinicalTrials() {
-      this.$router.push({
-        path: '/clinicalTrials'
-      })
-    },
-    // 专利
-    patent() {
-      this.$router.push({
-        path: '/patent'
       })
     },
     // 获取首页中间八大模块数据数量
@@ -538,13 +498,6 @@ export default {
         this.topNews = res.data
         if (this.topNews.length > 0) {
           this.columnLinkUrl = res.data[0].columnLinkUrl
-          let url = this.columnLinkUrl.split('/html/')
-          let u = url[1].split('/')
-          let a = u[0]
-          if (a == '') {
-            a = u[1]
-          }
-          this.columnLinkUrl = url[0] + '/' + a + '/index.html'
         } else {
           let zuixin = '.zuixin'
           this.showdiv(zuixin)
@@ -575,13 +528,6 @@ export default {
         this.newContent = res.data
         if (this.newContent.length > 0) {
           this.columnLinkUrl_newContent = res.data[0].columnLinkUrl
-          let url = this.columnLinkUrl.split('/html/')
-          let u = url[1].split('/')
-          let a = u[0]
-          if (a == '') {
-            a = u[1]
-          }
-          this.columnLinkUrl = url[0] + '/' + a + '/index.html'
         } else {
           let yanjiu = '.yanjiu'
           this.showdiv(yanjiu)
@@ -601,13 +547,6 @@ export default {
         this.notice = res.data
         if (this.notice.length > 0) {
           this.columnLinkUrl_notice = res.data[0].columnLinkUrl
-          let url = this.columnLinkUrl.split('/html/')
-          let u = url[1].split('/')
-          let a = u[0]
-          if (a == '') {
-            a = u[1]
-          }
-          this.columnLinkUrl = url[0] + '/' + a + '/index.html'
         } else {
           let gg = '.gg'
           this.showdiv(gg)
@@ -616,7 +555,13 @@ export default {
     },
     // cms页面跳转
     See(e) {
+      // window.location.href = '' + e
       window.open(e, '_blank')
+    }
+  },
+  computed: {
+    count() {
+      return this.$store.state.login
     }
   },
   mounted() {
@@ -750,7 +695,6 @@ export default {
     )
     // 业务划分区域页面跳转 1
     $('.guide_ul li').click(function() {
-      // debugger
       $('a', this)[0].click()
     })
   },

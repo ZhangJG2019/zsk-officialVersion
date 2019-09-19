@@ -145,31 +145,41 @@
             <!-- 帮助指南 -->
             <div class=" news " style="width:326px;">
               <h2>
-                <a @click="See(columnLinkUrl)"><strong>帮助指南</strong></a>
+                <!-- <strong @click="See(articleLinkUrl_help)"><strong>帮助指南</strong></a> -->
+                <a ><strong>帮助指南</strong></a>
               </h2>
               <ul class="left_ul left_content">
-                <li v-for="(item, key) in topNews" :key="key">
+                <!-- <li v-for="(item, key) in topNews" :key="key">
                   <span v-text="item.id"></span>
                   <a
                     @click="See(item.articleLinkUrl)"
                     v-text="item.articleTitle"
                   >
                   </a>
+                </li> -->
+                 <!-- <li class="static_null zuixin1" style="display:none"> -->
+                 <li class="static_null zuixin1" >
+                  <a>暂无好消息，请耐心等待~</a>
                 </li>
               </ul>
             </div>
             <!-- 常见问题 -->
             <div class=" news" style="width:326px;margin-top:18px">
               <h2>
-                <a @click="See(columnLinkUrl)"><strong>常见问题</strong></a>
+                <!-- <strong @click="See(columnLinkUrl)"><strong>常见问题</strong></a> -->
+                <a ><strong>常见问题</strong></a>
               </h2>
               <ul id="newlog" class="left_content">
-                <li v-for="(item, key) in newContent" :key="key">
+                <!-- <li v-for="(item, key) in newContent" :key="key">
                   <span v-text="item.id" class="new_content "></span>
                   <a
                     @click="See(item.articleLinkUrl)"
                     v-text="item.articleTitle"
                   ></a>
+                </li> -->
+                <!-- <li class="static_null zuixin" style="display:none"> -->
+                <li class="static_null zuixin">
+                  <a>暂无好消息，请耐心等待~</a>
                 </li>
               </ul>
             </div>
@@ -4437,13 +4447,14 @@ import axios from 'axios'
 export default {
   // 生命周期函数
   created() {
-    this.getHelp() // 帮助指南
-    this.getProblems() // 常见问题
+    // this.getHelp() // 帮助指南
+    // this.getProblems() // 常见问题
     // this.getNum() // 左侧内容数字
     this.getTaskList() // 任务大厅列表
   },
   data() {
     return {
+      articleLinkUrl_help:'',
       Gene_EN:[],   // 基因型（英文）
       bianyiGene:[], // 变异位点下拉列表
       // 富文本编辑器
@@ -6066,7 +6077,7 @@ export default {
     },
     // 获取任务大厅数据列表
     getTaskList() {
-      if(this.userInfo == null || this.userInfo == ''){
+      if(this.userInfo === null || this.userInfo === ''){
         this.userInfo = getStore('userInfo')
         // console.log(this.userInfo.roleVo)
         this.userInfo = JSON.parse(this.userInfo)
@@ -6622,6 +6633,16 @@ export default {
         this.getTaskList()
       }
     },
+     // 当帮助指南、常见问题没有数据时显示提示
+    showdiv(e) {
+      if ($(e).css('display') === 'none') {
+        // 如果show是隐藏的
+        $(e).css('display', 'block') // show的display属性设置为block（显示）
+      } else {
+        // 如果show是显示的
+        $(e).css('display', 'none') // show的display属性设置为none（隐藏）
+      }
+    },
     // 帮助指南
     getHelp() {
       // var topNew = '最新事件'
@@ -6635,7 +6656,12 @@ export default {
         console.log(res.data[0].columnTitle)
         // 把获得好的最新事件 赋予topNews 给成员
         this.topNews = res.data
-        this.columnLinkUrl = res.data[0].columnLinkUrl
+        if (this.topNews.length > 0) {
+          this.articleLinkUrl_help = res.data[0].columnLinkUrl
+        } else {
+          let zuixin1 = '.zuixin1'
+          this.showdiv(zuixin1)
+        }
       })
     },
     // 常见问题
@@ -6647,9 +6673,14 @@ export default {
         method: 'get',
         url: url
       }).then(res => {
-        // 把获得好的最新事件 赋予 给NewContent成员
+        // 把获得好的常见问题 赋予 给NewContent成员
         this.newContent = res.data
-        this.columnLinkUrl = res.data[0].columnLinkUrl
+        if (this.newContent.length > 0) {
+          this.columnLinkUrl = res.data[0].columnLinkUrl
+        } else {
+          let zuixin = '.zuixin'
+          this.showdiv(zuixin)
+        }
       })
     },
     // cms页面跳转

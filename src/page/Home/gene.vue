@@ -8,6 +8,16 @@
       <div class="tablecontent">
         <div class="content_title">
           <el-row>
+            <el-col :span="24" style="margin-bottom:20px;">
+              <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item :to="{ path: '/' }" style="font-size:15px;"
+                  >首页</el-breadcrumb-item
+                >
+                <el-breadcrumb-item style="font-size:15px;"
+                  >基因</el-breadcrumb-item
+                >
+              </el-breadcrumb>
+            </el-col>
             <el-col :span="24"
               ><p
                 style="font-size: 3.5625rem;font-family:microsoft yahei;margin-bottom:1.25rem;font-weight:100;"
@@ -165,7 +175,7 @@ export default {
     getNoticeTitle() {
       // var gonggao = '公告'
       // var url = '/apis/cms/api/getColumnNewList?title=' + gonggao
-      var url = 'static/data/getGenetitle.json'
+      var url = 'static/data/getGenetitle2.json'
       axios({
         method: 'get',
         url: url

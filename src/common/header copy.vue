@@ -16,8 +16,8 @@
                 placeholder="请输入查询信息"
                 icon="search"
                 v-model="userinput"
-                :minlength="1"
-                :maxlength="100"
+                minlength="1"
+                maxlength="100"
                 :fetch-suggestions="querySearchAsync"
                 @select="handleSelect"
                 :on-icon-click="handleIconClick"
@@ -104,10 +104,8 @@
 <script>
 import YButton from '/components/YButton'
 import { mapMutations, mapState } from 'vuex'
-// import { getQuickSearch } from '/api/goods'
+import { getQuickSearch } from '/api/goods'
 // import { loginOut } from '/api/index'
-import { getQuickSearch } from '/api/index'
-
 import { getStore, removeStore } from '/utils/storage'
 import 'element-ui/lib/theme-default/index.css'
 export default {
@@ -150,19 +148,19 @@ export default {
     ]),
     // 查询信息
     handleIconClick(ev) {
-      if (this.$route.path === '/queryAllResult') {
+      if (this.$route.path === '/search') {
         this.$router.push({
-          path: '/queryAllResult',
+          path: '/refreshsearch',
           query: {
-            key: this.userinput
+            name: this.userinput
           }
         })
         this.$emit('sousuo', this.userinput)
       } else {
         this.$router.push({
-          path: '/queryAllResult',
+          path: '/search',
           query: {
-            key: this.userinput
+            name: this.userinput
           }
         })
         this.$emit('sousuo', this.userinput)
@@ -201,7 +199,7 @@ export default {
     loadAll() {
       let params = {
         params: {
-          key: this.userinput
+          name: this.userinput
         }
       }
       getQuickSearch(params).then(res => {
@@ -312,8 +310,8 @@ export default {
     this.getPage()
     window.addEventListener('scroll', this.navFixed)
     window.addEventListener('resize', this.navFixed)
-    if (typeof this.$route.query.key !== undefined) {
-      this.userinput = this.$route.query.key
+    if (typeof this.$route.query.name !== undefined) {
+      this.userinput = this.$route.query.name
     }
   },
   components: {

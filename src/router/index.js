@@ -5,14 +5,22 @@ const Login = () => import('/page/Login/login.vue')
 const register = () => import('/page/Login/register.vue')
 const forgetpwd = () => import('/page/Login/forgetpwd.vue')
 const Home = () => import('/page/Home/home.vue')
+const taskUser = () => import('/page/Home/taskUser.vue')
+const Help = () => import('/page/Home/help.vue')
+const download = () => import('/page/Home/download.vue')
 const Gene = () => import('/page/Home/gene.vue')
 const Drug = () => import('/page/Home/drug.vue')
-// const getajax = () => import('/page/Home/getajax.vue')
+const Authority = () => import('/page/Home/authority.vue')
+const ClinicalNotes = () => import('/page/Home/clinicalNotes.vue')
+const ClinicalTrials = () => import('/page/Home/clinicalTrials.vue')
+const DrugGenePair = () => import('/page/Home/drugGenePair.vue')
+const DrugLabels = () => import('/page/Home/drugLabels.vue')
+const Patent = () => import('/page/Home/patent.vue')
 const order = () => import('/page/Order/order.vue')
 const user = () => import('/page/User/user.vue')
 const information = () => import('/page/User/children/information.vue')
 const taskhall = () => import('/page/Taskhall/taskhall.vue')
-const Search = () => import('/page/Search/search.vue')
+const QueryAllResult = () => import('/page/Search/queryAllResult.vue')
 const RefreshSearch = () => import('/page/Refresh/refreshsearch.vue')
 const RefreshGoods = () => import('/page/Refresh/refreshgoods.vue')
 
@@ -35,10 +43,51 @@ export default new Router({
       ]
   },
   {
+    path: '/download',
+    name: 'download',
+    component: download
+  },
+  {
+    path: '/help',
+    name: 'help',
+    component: Help
+  },
+  {
+    path: '/taskUser',
+    name: 'taskUser',
+    component: taskUser
+  },
+  {
+    path: '/authority',
+    name: 'authority',
+    component: Authority
+  },
+  {
     path: '/gene',
     name: 'gene',
     component: Gene
   },
+  {
+    path: '/clinicalNotes',
+    name: 'clinicalNotes',
+    component: ClinicalNotes
+  }, {
+      path: '/clinicalTrials',
+      name: 'clinicalTrials',
+      component: ClinicalTrials
+    }, {
+      path: '/drugGenePair',
+      name: 'drugGenePair',
+      component: DrugGenePair
+    }, {
+      path: '/drugLabels',
+      name: 'drugLabels',
+      component: DrugLabels
+    }, {
+      path: '/patent',
+      name: 'patent',
+      component: Patent
+    },
   {
     path: '/drug',
     name: 'drug',
@@ -69,9 +118,9 @@ export default new Router({
     name: 'order',
     component: order,
     children: [{
-        path: '/search',
-        name: 'search',
-        component: Search
+        path: '/queryAllResult',
+        name: 'queryAllResult',
+        component: QueryAllResult
       }]
   },
   {

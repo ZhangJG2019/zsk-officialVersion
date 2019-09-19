@@ -14,7 +14,7 @@
                   >首页</el-breadcrumb-item
                 >
                 <el-breadcrumb-item style="font-size:15px;"
-                  >药物</el-breadcrumb-item
+                  >专利</el-breadcrumb-item
                 >
               </el-breadcrumb>
             </el-col>
@@ -22,11 +22,14 @@
               ><p
                 style="font-size: 2.5625rem;font-family:microsoft yahei;margin-bottom:1.25rem;font-weight:100;"
               >
-                药物(drug)
+                专利(patent)
               </p>
-
               <p style="text-indent:2em;font-size:1.1rem;">
-                药物是用以预防、治疗及诊断疾病的物质。在理论上，药物是指凡能影响机体器官生理功能及细胞代谢活动的化学物质都属于药物的范畴，也包括避孕药。
+                基因（遗传因子）是产生一条多肽链或功能RNA所需的全部核苷酸序列。基因支持着生命的基本构造和性能。储存着生命的种族、血型、孕育、生长、凋亡等过程的全部信息。环境和遗传的互相依赖，演绎着生命的繁衍、细胞分裂和蛋白质合成等重要生理过程。生物体的生、长、衰、病、老、死等一切生命现象都与基因有关。它也是决定生命健康的内在因素。因此，基因具有双重属性：物质性（存在方式）和信息性（根本属性）。
+              </p>
+              <br />
+              <p style="text-indent:2em;font-size:1.1rem;">
+                带有遗传讯息的DNA片段称为基因，其他的DNA序列，有些直接以自身构造发挥作用，有些则参与调控遗传讯息的表现。组成简单生命最少要265到350个基因。（这涉及到了基因工作组的力量，人类的基因工作组与果蝇的基本相似）
               </p></el-col
             >
           </el-row>
@@ -34,19 +37,71 @@
             <!-- 左侧菜单栏 -->
             <el-col :span="6">
               <ul class="leftmenu">
+                <!-- <li v-for="(item, key) in keyword" :key="key">
+                  <el-checkbox id="check10" class="checkboxs" v-model="checked"
+                    ><span class="left_title" v-text="item.name">呼吸系统</span>
+                    &nbsp;&nbsp;(<span v-text="item.num">12</span>)</el-checkbox
+                  >
+                </li> -->
                 <li class="left_type">类别</li>
-                <li v-for="(item, key) in keytitle" :key="key">
-                  <el-checkbox
-                    name="check10"
-                    class="checkboxs"
-                    @change="handleCheckedTypesChange(item.id)"
-                    ><span
-                      :id="item.id"
-                      class="left_title"
-                      v-text="item.name"
-                    ></span>
-                    &nbsp;&nbsp;(<span v-text="map.get(item.id)"></span
-                    >)</el-checkbox
+                <li>
+                  <el-checkbox id="check1" class="checkboxs"
+                    ><span class="left_title">抗感染药</span>
+                    &nbsp;&nbsp;(<span>12</span>)</el-checkbox
+                  >
+                </li>
+                <li>
+                  <el-checkbox id="check2" class="checkboxs"
+                    ><span class="left_title">抗癌剂</span>
+                    &nbsp;&nbsp;(<span>12</span>)</el-checkbox
+                  >
+                </li>
+                <li>
+                  <el-checkbox id="check3" class="checkboxs"
+                    ><span class="left_title">心血管和血液药剂</span>
+                    &nbsp;&nbsp;<span>(12)</span></el-checkbox
+                  >
+                </li>
+                <li>
+                  <el-checkbox id="check4" class="checkboxs"
+                    ><span class="left_title">内分泌和代谢疾病药物</span>
+                    &nbsp;&nbsp;<span>(12)</span></el-checkbox
+                  >
+                </li>
+                <li>
+                  <el-checkbox id="check5" class="checkboxs"
+                    ><span class="left_title">消化道剂</span>
+                    &nbsp;&nbsp;(<span>12</span>)</el-checkbox
+                  >
+                </li>
+                <li>
+                  <el-checkbox id="check6" class="checkboxs"
+                    ><span class="left_title">肌肉骨骼药</span>
+                    &nbsp;&nbsp;<span>(12)</span></el-checkbox
+                  >
+                </li>
+                <li>
+                  <el-checkbox id="check7" class="checkboxs"
+                    ><span class="left_title">神经药剂</span>
+                    &nbsp;&nbsp;(<span>12</span>)</el-checkbox
+                  >
+                </li>
+                <li>
+                  <el-checkbox id="check8" class="checkboxs"
+                    ><span class="left_title"> 疼痛、抗炎和免疫调节剂</span>
+                    &nbsp;&nbsp;<span>(12)</span></el-checkbox
+                  >
+                </li>
+                <li>
+                  <el-checkbox id="check9" class="checkboxs"
+                    ><span class="left_title"> 生理机制</span>
+                    &nbsp;&nbsp;(<span>12</span>)</el-checkbox
+                  >
+                </li>
+                <li>
+                  <el-checkbox id="check10" class="checkboxs"
+                    ><span class="left_title">呼吸系统</span>
+                    &nbsp;&nbsp;(<span>12</span>)</el-checkbox
                   >
                 </li>
               </ul>
@@ -61,13 +116,14 @@
                   placeholder="请输入内容"
                 ></el-input>
                 <p style="float:right;margin-right:5.625rem;color:#B8D1E8;">
-                  <span style="color:#B0B7C2;" v-text="totalNum"></span>个途径
+                  <!-- <span style="color:#B0B7C2;" v-text="totalNum">142</span> -->
+                  <span style="color:#B0B7C2;">142</span>个途径
                 </p>
               </div>
               <!-- 下方具体数据展示列表 -->
               <ul class="gene_list">
                 <li
-                  v-for="(item, key) in geneList"
+                  v-for="(item, key) in getGene"
                   :key="key"
                   style="cursor:pointer;"
                 >
@@ -129,22 +185,18 @@ export default {
   data() {
     return {
       getGene: [], // 获取列表所有具体数据存放的数组，点击复选框，发ajax重新请求所对应的新数据
-      geneList: [],
-      totalNum: 0, // 复选框数据（括号里面的数字）的总数
-      keytitle: [],
+      totalNum: '', // 复选框数据（括号里面的数字）的总数
+      keyword: [],
       type: '',
-      filter_input: '',
-      map: new Map(),
-      ids: ''
+      filter_input: ''
     }
   },
   created() {
     this.getNotice()
-    this.getNoticeTitle()
   },
   mounted() {},
   methods: {
-    // 所有基因数据列表获取
+    // 基因数据列表获取
     getNotice() {
       // var gonggao = '公告'
       // var url = '/apis/cms/api/getColumnNewList?title=' + gonggao
@@ -155,64 +207,12 @@ export default {
       }).then(res => {
         // 把获得好的数据 赋予 给getGene成员
         this.getGene = res.data
-        this.geneList = this.getGene
-        this.totalNum = this.getGene.length
-        // console.log(res)
-        for (let i = 0; i < this.getGene.length; i++) {
-          this.map.set(
-            this.getGene[i].typeId,
-            this.map.get(this.getGene[i].typeId) == null
-              ? 1
-              : this.map.get(this.getGene[i].typeId) + 1
-          )
-        }
+        console.log(res)
+        // if (this.getGene.length > 0) {
+        //   this.columnLinkUrl = res.data[0].columnLinkUrl
+        // } else {
+        // }
       })
-    },
-    // 基因数据左侧标题获取
-    getNoticeTitle() {
-      // var gonggao = '公告'
-      // var url = '/apis/cms/api/getColumnNewList?title=' + gonggao
-      var url = 'static/data/getGenetitle2.json'
-      axios({
-        method: 'get',
-        url: url
-      }).then(res => {
-        // 把获得好的数据 赋予 给getGene成员
-        this.keytitle = res.data
-        // console.log(res)
-      })
-    },
-    // 点击基因数据标题获取对应列表数据
-    handleCheckedTypesChange(id) {
-      this.geneList = []
-      if (this.ids.indexOf(id + ',') === -1) {
-        this.ids += id + ','
-      } else {
-        this.ids = this.ids.replace(id + ',', '')
-      }
-      console.log(this.ids)
-      if (this.ids === '') {
-        this.geneList = this.getGene
-        return
-      }
-      for (let i = 0; i < this.getGene.length; i++) {
-        let typeId = this.getGene[i].typeId + ','
-        if (this.ids.indexOf(typeId) !== -1) {
-          this.geneList.push(this.getGene[i])
-        }
-      }
-      // var url = 'static/data/getGene.json'
-      // axios({ methods: 'get', url: url }).then(res => {
-      //   // console.log(res.data)
-      //   for (let i = 0; i < this.getGene.length; i++) {
-      //     this.map.set(
-      //       this.getGene[i].typeId,
-      //       this.map.get(this.getGene[i].typeId) == null
-      //         ? 1
-      //         : this.map.get(this.getGene[i].typeId) + 1
-      //     )
-      //   }
-      // })
     }
   },
   components: {

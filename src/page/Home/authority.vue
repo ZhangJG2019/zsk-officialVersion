@@ -14,7 +14,7 @@
                   >首页</el-breadcrumb-item
                 >
                 <el-breadcrumb-item style="font-size:15px;"
-                  >药物</el-breadcrumb-item
+                  >权威指南</el-breadcrumb-item
                 >
               </el-breadcrumb>
             </el-col>
@@ -22,11 +22,14 @@
               ><p
                 style="font-size: 2.5625rem;font-family:microsoft yahei;margin-bottom:1.25rem;font-weight:100;"
               >
-                药物(drug)
+                权威指南(authority)
               </p>
-
               <p style="text-indent:2em;font-size:1.1rem;">
-                药物是用以预防、治疗及诊断疾病的物质。在理论上，药物是指凡能影响机体器官生理功能及细胞代谢活动的化学物质都属于药物的范畴，也包括避孕药。
+                基因（遗传因子）是产生一条多肽链或功能RNA所需的全部核苷酸序列。基因支持着生命的基本构造和性能。储存着生命的种族、血型、孕育、生长、凋亡等过程的全部信息。环境和遗传的互相依赖，演绎着生命的繁衍、细胞分裂和蛋白质合成等重要生理过程。生物体的生、长、衰、病、老、死等一切生命现象都与基因有关。它也是决定生命健康的内在因素。因此，基因具有双重属性：物质性（存在方式）和信息性（根本属性）。
+              </p>
+              <br />
+              <p style="text-indent:2em;font-size:1.1rem;">
+                带有遗传讯息的DNA片段称为基因，其他的DNA序列，有些直接以自身构造发挥作用，有些则参与调控遗传讯息的表现。组成简单生命最少要265到350个基因。（这涉及到了基因工作组的力量，人类的基因工作组与果蝇的基本相似）
               </p></el-col
             >
           </el-row>

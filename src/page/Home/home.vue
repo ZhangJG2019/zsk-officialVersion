@@ -297,9 +297,9 @@ import axios from 'axios'
 import { getStore, setStore } from '/utils/storage.js'
 import store from '../../store/index.js'
 // 时间补位函数 1
-var padDate = function(value) {
-  return value < 10 ? '0' + value : value
-}
+// var padDate = function(value) {
+//   return value < 10 ? '0' + value : value
+// }
 // 事件补位函数 2
 // 格式化时间函数 1
 var formatDate = function(value) {
@@ -309,7 +309,7 @@ var formatDate = function(value) {
   // var month = padDate(date.getMonth() + 1)
   // var day = padDate(date.getDate())
   // return year + '-' + month + '-' + day
-   let a = value.split(' ')
+  let a = value.split(' ')
   return a[0]
 }
 // 格式化时间函数 2
@@ -539,12 +539,13 @@ export default {
         if (this.topNews.length > 0) {
           this.columnLinkUrl = res.data[0].columnLinkUrl
           let url = this.columnLinkUrl.split('/html/')
-          let u = url[1].split('/')
+          let s = url[1]
+          let u = s.split('/')
           let a = u[0]
-          if (a == '') {
+          if (a === '') {
             a = u[1]
           }
-          this.columnLinkUrl = url[0] + '/' + a + '/index.html'
+          this.columnLinkUrl = url[0] + '/html/' + a + '/index.html'
         } else {
           let zuixin = '.zuixin'
           this.showdiv(zuixin)
@@ -571,17 +572,18 @@ export default {
         method: 'get',
         url: url
       }).then(res => {
-        // 把获得好的最新事件 赋予 给NewContent成员
+        // 把获得好的最新研究内容 赋予 给NewContent成员
         this.newContent = res.data
         if (this.newContent.length > 0) {
           this.columnLinkUrl_newContent = res.data[0].columnLinkUrl
-          let url = this.columnLinkUrl.split('/html/')
-          let u = url[1].split('/')
+          let url = this.columnLinkUrl_newContent.split('/html/')
+          let s = url[1]
+          let u = s.split('/')
           let a = u[0]
-          if (a == '') {
+          if (a === '') {
             a = u[1]
           }
-          this.columnLinkUrl = url[0] + '/' + a + '/index.html'
+          this.columnLinkUrl_newContent = url[0] + '/html/' + a + '/index.html'
         } else {
           let yanjiu = '.yanjiu'
           this.showdiv(yanjiu)
@@ -597,17 +599,18 @@ export default {
         method: 'get',
         url: url
       }).then(res => {
-        // 把获得好的最新事件 赋予 给notice成员
+        // 把获得好的公告 赋予 给notice成员
         this.notice = res.data
         if (this.notice.length > 0) {
           this.columnLinkUrl_notice = res.data[0].columnLinkUrl
-          let url = this.columnLinkUrl.split('/html/')
-          let u = url[1].split('/')
+          let url = this.columnLinkUrl_notice.split('/html/')
+          let s = url[1]
+          let u = s.split('/')
           let a = u[0]
-          if (a == '') {
+          if (a === '') {
             a = u[1]
           }
-          this.columnLinkUrl = url[0] + '/' + a + '/index.html'
+          this.columnLinkUrl_notice = url[0] + '/html/' + a + '/index.html'
         } else {
           let gg = '.gg'
           this.showdiv(gg)

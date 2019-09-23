@@ -12,7 +12,7 @@
           </div>
           <div class="right-box">
             <div class="nav-list">
-              <el-autocomplete
+              <el-input
                 placeholder="请输入查询信息"
                 icon="search"
                 v-model="userinput"
@@ -20,10 +20,11 @@
                 :maxlength="100"
                 :fetch-suggestions="querySearchAsync"
                 @select="handleSelect"
-                :on-icon-click="handleIconClick"
+                suffix-icon="el-icon-search"
                 @keydown.enter.native="handleIconClick"
+                @change="handleIconClick"
               >
-              </el-autocomplete>
+              </el-input>
             </div>
             <!-- <div class="nav-aside" ref="aside" :class="{ fixed: st }"> -->
             <div class="nav-aside" ref="aside" :class="{ fixed: false }">
@@ -109,7 +110,7 @@ import { mapMutations, mapState } from 'vuex'
 import { getQuickSearch } from '/api/index'
 
 import { getStore, removeStore } from '/utils/storage'
-import 'element-ui/lib/theme-default/index.css'
+import 'element-ui/lib/theme-chalk/index.css'
 export default {
   data() {
     return {
@@ -285,11 +286,11 @@ export default {
       removeStore('rpassword')
       localStorage.clear()
       window.location.href = 'http://47.105.75.254:9100/cas/logout'
-      window.location.href = 'http://47.105.75.254'
-      // window.location.href = '#/login'
-      // this.$router.push({
-      //   path: 'http://47.105.75.254:9100/cas/logout'
-      // })
+      function test1() {
+        window.location.href = 'http://47.105.75.254'
+      }
+      setTimeout(test1(), 2000)
+      clearTimeout(test1)
     },
     // 通过路由改变导航文字样式
     getPage() {

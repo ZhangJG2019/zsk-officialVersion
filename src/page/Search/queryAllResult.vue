@@ -19,7 +19,8 @@
               </el-breadcrumb>
             </el-col>
           </el-row>
-          <el-row style="margin-top:30px;">
+          <!-- <el-row style="margin-top:30px;"> -->
+          <el-row>
             <!-- 左侧菜单栏 -->
             <el-col :span="6">
               <ul class="leftmenu">
@@ -61,7 +62,7 @@
                   :key="key"
                   style="cursor:pointer;"
                 >
-                  <div class="right_left" style="float:left; ">
+                  <div class="right_left" style="float:left; padding-top:32px;">
                     <span
                       class="iconfont icon-jiyinsuanfa"
                       style="font-size:50px;"
@@ -77,7 +78,12 @@
                     >
                       <!-- <span style="color:#8b94a6;font-size:14px;">途径</span> -->
                       <br />
-                      <span class="right_title" v-text="item.name"> </span>
+                      <span
+                        class="right_title"
+                        v-text="item.name"
+                        style="font-size: 1.2rem;"
+                      >
+                      </span>
                       <br />
                       <span
                         class="right_title"
@@ -86,7 +92,22 @@
                       >
                       </span>
                       <br />
-                      <span class="right_title" v-text="item.introduce"> </span>
+                      <!--<p class="right_title">
+                         <ul class="search_title" style="height:20px">
+                          <li style="width:140px;text-align:center">临床指南注释(120)</li>
+                          <li style="width:140px;text-align:center">药物标签注释(40)</li>
+                          <li style="width:140px;text-align:center">临床注释(50)</li>
+                          <li style="width:140px;text-align:center">变异注释(30)</li>
+                        </ul>
+
+                        <ul class="search_title" style="height:20px"  v-for="(item, key) in listLabel" :key="key">
+                          <li style="width:140px;text-align:center">
+                            <span :id="item.id" class="left_title" v-text="item.name"></span>
+                            &nbsp;&nbsp;
+                            (<span v-text="map.get(item.id)"></span>)
+                          </li>
+                        </ul> 
+                      </p>-->
                     </div>
                     <img
                       flaot="right"
@@ -117,6 +138,7 @@ export default {
   // 生命周期函数
   data() {
     return {
+      // listLabel: [], // 搜索页中每一条数据的label数据
       searchKey: 'gene', // 子组件Yheader传过来的搜索关键字
       getGene: [], // 获取列表所有具体数据存放的数组，点击复选框，发ajax重新请求所对应的新数据
       geneList: [],
@@ -257,6 +279,14 @@ export default {
 }
 </script>
 <style lang="scss" rel="stylesheet/scss" scoped>
+.right_title .search_title li {
+  float: left;
+  background-color: #eee;
+  margin-left: 5px;
+}
+.right_title .search_title li:hover {
+  background-color: #ddd;
+}
 .gene_list li:hover {
   // background-color: #f9f9fa;
   background-color: red;
@@ -277,6 +307,9 @@ export default {
   float: right;
   margin: 1rem 1.25rem 0 0;
 }
+.right_right:hover {
+  background-color: #e3effc;
+}
 .right_right img {
   width: 3.125rem;
   height: 3.8125rem;
@@ -285,6 +318,7 @@ export default {
   margin-bottom: 20px;
 }
 .right_title {
+  padding-left: 1.4rem;
   font-size: 1rem;
   line-height: 1.5;
   font-weight: 300;
